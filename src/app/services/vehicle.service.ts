@@ -1,5 +1,6 @@
+// vehicle.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http'; // Importar HttpParams
 import { Observable } from 'rxjs';
 import { Vehicle } from '../models/vehicle.model';
 
@@ -9,18 +10,23 @@ import { Vehicle } from '../models/vehicle.model';
 export class VehicleService {
   private apiUrl = 'http://localhost:5240/api/vehicles'; // URL de la API de vehículos
   private brandsUrl = 'http://localhost:5240/api/brands'; // URL de la API de marcas
-  private imageUrl = 'http://localhost:5240/api/image'; // URL de la API de marcas
 
   constructor(private http: HttpClient) {}
 
-  // Obtener las marcas de vehículos
-  getBrands(): Observable<{ $values: { id: number; name: string }[] }> {
-    return this.http.get<{ $values: { id: number; name: string }[] }>(this.brandsUrl);
+  // Obtener vehículos con paginación y filtros
+  getVehicles(page: number, pageSize: number, term: string, year: string): Observable<{ data: Vehicle[]; totalItems: number }> {
+    const params = new HttpParams() // Usar HttpParams
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString())
+      .set('term', term)
+      .set('year', year);
+
+    return this.http.get<{ data: Vehicle[]; totalItems: number }>(this.apiUrl, { params });
   }
 
-  // Obtener todos los vehículos
-  getVehicles(): Observable<{ $values: Vehicle[] }> {
-    return this.http.get<{ $values: Vehicle[] }>(this.apiUrl);
+  // Obtener un vehículo por su ID
+  getVehicle(id: number): Observable<Vehicle> {
+    return this.http.get<Vehicle>(`${this.apiUrl}/${id}`);
   }
 
   // Agregar un vehículo
@@ -31,5 +37,10 @@ export class VehicleService {
   // Eliminar un vehículo
   deleteVehicle(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  // Obtener la lista de marcas
+  getBrands(): Observable<{ id: number; name: string }[]> {
+    return this.http.get<{ id: number; name: string }[]>(this.brandsUrl);
   }
 }

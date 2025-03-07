@@ -1,0 +1,15 @@
+<!-- brand-list.component.html -->
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let brand of brands">
+      <td>{{ brand.id }}</td>
+      <td>{{ brand.name }}</td>
+    </tr>
+  </tbody>
+</table>

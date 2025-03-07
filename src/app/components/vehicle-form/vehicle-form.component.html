@@ -1,15 +1,27 @@
+<!-- vehicle-form.component.html -->
 <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="brandId">Marca:</label>
-    <input id="brandId" formControlName="brandId" type="text" />
+    <select id="brandId" formControlName="brandId">
+      <option value="" disabled selected>Selecciona una marca</option>
+      <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
+    </select>
   </div>
   <div>
     <label for="model">Modelo:</label>
     <input id="model" formControlName="model" type="text" />
   </div>
   <div>
-    <label for="image">Imagen:</label>
-    <input id="image" type="file" formControlName="image" />
+    <label for="year">Año:</label>
+    <input id="year" formControlName="year" type="number" />
+  </div>
+  <div>
+    <label>Imágenes:</label>
+    <div *ngFor="let url of imageUrls; let i = index">
+      <input [(ngModel)]="imageUrls[i]" placeholder="URL de la imagen" />
+      <button type="button" (click)="removeImageUrl(i)">Eliminar</button>
+    </div>
+    <button type="button" (click)="addImageUrl()" [disabled]="imageUrls.length >= 5">Agregar URL</button>
   </div>
   <button type="submit" [disabled]="!vehicleForm.valid">Guardar</button>
 </form>

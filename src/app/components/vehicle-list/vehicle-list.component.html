@@ -1,9 +1,15 @@
+<!-- vehicle-list.component.html -->
+<div>
+  <input [(ngModel)]="searchTerm" placeholder="Buscar por marca, modelo o año" />
+  <input [(ngModel)]="searchYear" type="number" placeholder="Filtrar por año" />
+  <button (click)="onSearch()">Buscar</button>
+</div>
 <table>
   <thead>
     <tr>
       <th>Marca</th>
       <th>Modelo</th>
-      <th>Imagen</th>
+      <th>Año</th>
       <th>Acciones</th>
     </tr>
   </thead>
@@ -11,9 +17,7 @@
     <tr *ngFor="let vehicle of vehicles">
       <td>{{ vehicle.brandId }}</td>
       <td>{{ vehicle.model }}</td>
-      <td>
-        <img [src]="vehicle.imageId" alt="Imagen del vehículo" width="100" />
-      </td>
+      <td>{{ vehicle.year }}</td>
       <td>
         <button (click)="editVehicle(vehicle.id!)">Editar</button>
         <button (click)="deleteVehicle(vehicle.id!)">Eliminar</button>
@@ -21,4 +25,8 @@
     </tr>
   </tbody>
 </table>
-<button (click)="router.navigate(['/vehicle-form'])">Registrar Nuevo Vehículo</button>
+<div>
+  <button (click)="page = page - 1" [disabled]="page === 1">Anterior</button>
+  <span>Página {{ page }} de {{ totalPages }}</span>
+  <button (click)="page = page + 1" [disabled]="page * pageSize >= totalItems">Siguiente</button>
+</div>

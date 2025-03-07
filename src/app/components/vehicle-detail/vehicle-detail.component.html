@@ -1,0 +1,18 @@
+<!-- vehicle-detail.component.html -->
+<div *ngIf="vehicle">
+  <h2>Detalle del vehículo</h2>
+  <p><strong>Marca:</strong> {{ vehicle.brandId }}</p>
+  <p><strong>Modelo:</strong> {{ vehicle.model }}</p>
+  <p><strong>Año:</strong> {{ vehicle.year }}</p>
+  <div *ngIf="vehicle.imageUrls.length > 0">
+    <strong>Imágenes:</strong>
+    <div *ngFor="let url of vehicle.imageUrls">
+      <img [src]="url" alt="Imagen del vehículo" width="200" />
+    </div>
+  </div>
+  <button (click)="editVehicle()">Editar</button>
+  <button (click)="deleteVehicle()">Eliminar</button>
+</div>
+<div *ngIf="!vehicle">
+  <p>No se encontró el vehículo.</p>
+</div>
