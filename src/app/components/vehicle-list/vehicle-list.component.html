@@ -1,0 +1,24 @@
+<table>
+  <thead>
+    <tr>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Imagen</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vehicle of vehicles">
+      <td>{{ vehicle.brandId }}</td>
+      <td>{{ vehicle.model }}</td>
+      <td>
+        <img [src]="vehicle.imageId" alt="Imagen del vehículo" width="100" />
+      </td>
+      <td>
+        <button (click)="editVehicle(vehicle.id!)">Editar</button>
+        <button (click)="deleteVehicle(vehicle.id!)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button (click)="router.navigate(['/vehicle-form'])">Registrar Nuevo Vehículo</button>

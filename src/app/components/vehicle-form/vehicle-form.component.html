@@ -1,0 +1,15 @@
+<form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="brandId">Marca:</label>
+    <input id="brandId" formControlName="brandId" type="text" />
+  </div>
+  <div>
+    <label for="model">Modelo:</label>
+    <input id="model" formControlName="model" type="text" />
+  </div>
+  <div>
+    <label for="image">Imagen:</label>
+    <input id="image" type="file" formControlName="image" />
+  </div>
+  <button type="submit" [disabled]="!vehicleForm.valid">Guardar</button>
+</form>

@@ -1,0 +1,27 @@
+<div>
+  <h1>Agregar Vehículo</h1>
+
+  <!-- Formulario para agregar un vehículo -->
+  <div>
+    <input [(ngModel)]="newModel" placeholder="Modelo del vehículo" />
+    <select [(ngModel)]="newBrandId">
+      <option value="" disabled selected>Selecciona una marca</option>
+      <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
+    </select>
+    <input [(ngModel)]="newImage" placeholder="Enlace de la imagen" />
+    <button (click)="addVehicle()">Agregar</button>
+  </div>
+
+  <!-- Lista de vehículos -->
+  <h2>Lista de Vehículos</h2>
+  <ul>
+    <li *ngFor="let vehicle of vehicles">
+      <strong>Marca:</strong> {{ getBrandName(vehicle.brandId) }} <br />
+      <strong>Modelo:</strong> {{ vehicle.model }} <br />
+      <strong>Imagen:</strong> <br />
+      <img [src]="vehicle.imageUrl" [alt]="vehicle.brandId" width="100%" />
+      {{ vehicle.imageUrl }} <!-- Muestra la URL en la plantilla para depuración -->
+      <button *ngIf="vehicle.id !== undefined" (click)="deleteVehicle(vehicle.id)">Eliminar</button>
+    </li>
+  </ul>
+</div>
